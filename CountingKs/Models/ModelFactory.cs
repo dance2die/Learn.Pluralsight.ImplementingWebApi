@@ -19,7 +19,7 @@ namespace CountingKs.Models
 		{
 			return new FoodModel
 				{
-					Url = _urlHelper.Link("Food", new {foodid = food.Id}),
+					Url = _urlHelper.Link("Food", new { foodid = food.Id }),
 					Description = food.Description,
 					Measures = food.Measures.Select(measure => Create(measure))
 				};
@@ -29,9 +29,18 @@ namespace CountingKs.Models
 		{
 			return new MeasureModel
 				{
-					Url = _urlHelper.Link("Measures", new {foodid = measure.Food.Id, id = measure.Id}),
+					Url = _urlHelper.Link("Measures", new { foodid = measure.Food.Id, id = measure.Id }),
 					Description = measure.Description,
 					Calories = Math.Round(measure.Calories)
+				};
+		}
+
+		public DiaryModel Create(Diary diary)
+		{
+			return new DiaryModel
+				{
+					Url = _urlHelper.Link("Diaries", new { diaryid = diary.CurrentDate.ToString("yyyy-MM-dd") }),
+					CurrentDate = diary.CurrentDate
 				};
 		}
 	}
