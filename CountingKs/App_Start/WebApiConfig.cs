@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Newtonsoft.Json.Serialization;
 
@@ -13,14 +14,14 @@ namespace CountingKs
 		{
 			config.Routes.MapHttpRoute(
 				name: "Food",
-				routeTemplate: "api/nutrition/foods/{id}",
-				defaults: new { controller = "Foods", id = RouteParameter.Optional }
+				routeTemplate: "api/nutrition/foods/{foodid}",
+				defaults: new { controller = "foods", foodid = RouteParameter.Optional }
 			);
 
 			config.Routes.MapHttpRoute(
 				name: "Measures",
 				routeTemplate: "api/nutrition/foods/{foodid}/measures/{id}",
-				defaults: new {controller = "Measures", id = RouteParameter.Optional}
+				defaults: new {controller = "measures", id = RouteParameter.Optional}
 				);
 
 			//config.Routes.MapHttpRoute(
@@ -36,6 +37,8 @@ namespace CountingKs
 
 			var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
 			jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 		}
 	}
 }
