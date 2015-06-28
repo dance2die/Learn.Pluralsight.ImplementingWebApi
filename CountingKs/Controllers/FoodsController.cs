@@ -8,10 +8,16 @@ namespace CountingKs.Controllers
 {
 	public class FoodsController : ApiController
 	{
+		private ICountingKsRepository _repo;
+
+		public FoodsController(ICountingKsRepository repo)
+		{
+			_repo = repo;
+		}
+
 		public IEnumerable<Food> Get()
 		{
-			var repo = new CountingKsRepository(new CountingKsContext());
-			var result = repo.GetAllFoods()
+			var result = _repo.GetAllFoods()
 				.OrderBy(food => food.Description)
 				.Take(25)
 				.ToList();
