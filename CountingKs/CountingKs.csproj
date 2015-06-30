@@ -225,6 +225,7 @@
     <Compile Include="Controllers\DiaryEntriesController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\DiarySummaryController.cs" />
     <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MeasuresController.cs" />
