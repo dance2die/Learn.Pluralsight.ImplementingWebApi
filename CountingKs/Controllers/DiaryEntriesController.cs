@@ -89,36 +89,33 @@ namespace CountingKs.Controllers
 			}
 		}
 
-		//[HttpPut]
-		//[HttpPatch]
-		//public HttpResponseMessage Patch(DateTime diaryId, int id, [FromBody] DiaryEntryModel model)
-		//{
-		//	try
-		//	{
-		//		var entity = TheRepository.GetDiaryEntry(_identityService.CurrentUser, diaryId, id);
-		//		if (entity == null) return Request.CreateResponse(HttpStatusCode.NotFound);
+		[HttpPut]
+		[HttpPatch]
+		public HttpResponseMessage Patch(DateTime diaryId, int id, [FromBody] DiaryEntryModel model)
+		{
+			try
+			{
+				var entity = TheRepository.GetDiaryEntry(_identityService.CurrentUser, diaryId, id);
+				if (entity == null)
+					return Request.CreateResponse(HttpStatusCode.NotFound);
 
-		//		var parsedValue = TheModelFactory.Parse(model);
-		//		if (parsedValue == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
+				DiaryEntry parsedValue = TheModelFactory.Parse(model);
+				if (parsedValue == null)
+					return Request.CreateResponse(HttpStatusCode.NotFound);
 
-		//		if (entity.Quantity != parsedValue.Quantity)
-		//		{
-		//			entity.Quantity = parsedValue.Quantity;
-		//			if (TheRepository.SaveAll())
-		//			{
-		//				return Request.CreateResponse(HttpStatusCode.OK);
-		//			}
-		//		}
+				if (entity.Quantity != parsedValue.Quantity)
+				{
+					entity.Quantity = parsedValue.Quantity;
+					if (TheRepository.SaveAll())
+						return Request.CreateResponse(HttpStatusCode.OK);
+				}
 
-		//		return Request.CreateResponse(HttpStatusCode.BadRequest);
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
-		//	}
-
-
-		//}
-
+				return Request.CreateResponse(HttpStatusCode.BadRequest);
+			}
+			catch (Exception ex)
+			{
+				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+			}
+		}
 	}
 }
