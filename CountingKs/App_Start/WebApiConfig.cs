@@ -52,8 +52,15 @@ namespace CountingKs
 			jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+			// Add support JSONP
+			var jsonpFormatter = new WebApiContrib.Formatting.Jsonp.JsonpMediaTypeFormatter(jsonFormatter, "cb");
+			config.Formatters.Insert(0, jsonpFormatter);
+			//var jsonpFormatter = new JsonMediaTypeFormatter();
+			//config.Formatters.Insert(0, jsonpFormatter);
+
 #if !DEBUG
-			// Force HTTPS on entire API
+	// Force HTTPS on entire API
 			config.Filters.Add(new RequireHttpsAttribute());
 #endif
 		}
