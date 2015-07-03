@@ -53,9 +53,9 @@ namespace CountingKs
 
 			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
-			// Add support JSONP
-			var jsonpFormatter = new WebApiContrib.Formatting.Jsonp.JsonpMediaTypeFormatter(jsonFormatter, "cb");
-			config.Formatters.Insert(0, jsonpFormatter);
+			//// Add support JSONP
+			//var jsonpFormatter = new WebApiContrib.Formatting.Jsonp.JsonpMediaTypeFormatter(jsonFormatter, "cb");
+			//config.Formatters.Insert(0, jsonpFormatter);
 			//var jsonpFormatter = new JsonMediaTypeFormatter();
 			//config.Formatters.Insert(0, jsonpFormatter);
 

@@ -26,7 +26,7 @@ namespace CountingKs.Filters
 					var rawCredentials = authHeader.Parameter;
 					var encoding = Encoding.GetEncoding("iso-8859-1");
 					var credentials = encoding.GetString(Convert.FromBase64String(rawCredentials));
-					var split = credentials.Split(';');
+					var split = credentials.Split(':');
 					var username = split[0];
 					var password = split[1];
 
