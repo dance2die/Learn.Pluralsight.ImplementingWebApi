@@ -1,10 +1,7 @@
-﻿namespace CountingKs.Data.Entities
+﻿namespace CountingKs.Models
 {
-	public class Measure
+	public class MeasureV2Model : MeasureModel
 	{
-		public int Id { get; set; }
-		public string Description { get; set; }
-		public double Calories { get; set; }
 		public double TotalFat { get; set; }
 		public double SaturatedFat { get; set; }
 		public double Protein { get; set; }
@@ -14,7 +11,5 @@
 		public double Sodium { get; set; }
 		public double Iron { get; set; }
 		public double Cholestrol { get; set; }
-
-		public virtual Food Food { get; set; }
 	}
 }

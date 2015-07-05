@@ -236,9 +236,11 @@
     <Compile Include="Controllers\DiarySummaryController.cs" />
     <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MeasuresV2Controller.cs" />
     <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Models\AuthTokenModel.cs" />
+    <Compile Include="Models\MeasureV2Model.cs" />
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Filters\CountingKsAuthorizeAttribute.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
