@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using CacheCow.Server;
+using CacheCow.Server.EntityTagStore.SqlServer;
 using CountingKs.Filters;
 using CountingKs.Services;
 using Newtonsoft.Json.Serialization;
@@ -75,9 +78,16 @@ namespace CountingKs
 			//var jsonpFormatter = new JsonMediaTypeFormatter();
 			//config.Formatters.Insert(0, jsonpFormatter);
 
-			// Replace the Controller Configuration
-			config.Services.Replace(typeof(IHttpControllerSelector),
-				new CountingKsControllerSelector(config));
+			//// Replace the Controller Configuration
+			//config.Services.Replace(typeof(IHttpControllerSelector),
+			//	new CountingKsControllerSelector(config));
+
+			// Configure Caching/ETag Support
+			var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+			var etagStore = new SqlServerEntityTagStore(connectionString);
+			var cacheHandler = new CachingHandler(GlobalConfiguration.Configuration, etagStore);
+			cacheHandler.AddLastModifiedHeader = true;
+			config.MessageHandlers.Add(cacheHandler);
 
 #if !DEBUG
 	// Force HTTPS on entire API
