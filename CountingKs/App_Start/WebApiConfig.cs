@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using CacheCow.Server;
 using CacheCow.Server.EntityTagStore.SqlServer;
+using CountingKs.Converters;
 using CountingKs.Filters;
 using CountingKs.Services;
 using Newtonsoft.Json.Serialization;
@@ -67,6 +68,7 @@ namespace CountingKs
 
 			var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
 			jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			jsonFormatter.SerializerSettings.Converters.Add(new LinkModelConverter());
 			CreateMediaTypes(jsonFormatter);
 
 

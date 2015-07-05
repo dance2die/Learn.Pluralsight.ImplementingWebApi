@@ -251,6 +251,7 @@
     <Compile Include="Controllers\MeasuresV2Controller.cs" />
     <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
+    <Compile Include="Converters\LinkModelConverter.cs" />
     <Compile Include="Models\AuthTokenModel.cs" />
     <Compile Include="Models\LinkModel.cs" />
     <Compile Include="Models\MeasureV2Model.cs" />
