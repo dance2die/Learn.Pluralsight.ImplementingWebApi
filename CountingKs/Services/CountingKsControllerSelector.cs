@@ -31,8 +31,8 @@ namespace CountingKs.Services
 			{
 				//string version = GetVersionFromQueryString(request);
 				//string version = GetVersionFromHeader(request);
-				string version = GetVersionFromAcceptHeaderVersion(request);
-				//var version = GetVersionFromMediaType(request);
+				//string version = GetVersionFromAcceptHeaderVersion(request);
+				string version = GetVersionFromMediaType(request);
 				var newName = string.Concat(controllerName, "V", version);
 				HttpControllerDescriptor versionedDescriptor;
 
@@ -47,15 +47,13 @@ namespace CountingKs.Services
 		private string GetVersionFromMediaType(HttpRequestMessage request)
 		{
 			var accept = request.Headers.Accept;
-			var ex = new Regex(@"application\/vnd\.countingks\.([a-z]+)\.v([0-9]+)\+json", RegexOptions.IgnoreCase);
+			var pattern = @"application\/vnd\.countingks\.([a-z]+)\.v([0-9]+)\+json";
+			var ex = new Regex(pattern, RegexOptions.IgnoreCase);
 
 			foreach (var mime in accept)
 			{
 				var match = ex.Match(mime.MediaType);
-				if (match != null)
-				{
-					return match.Groups[2].Value;
-				}
+				return match.Groups[2].Value;
 			}
 
 			return "1";
