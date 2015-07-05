@@ -252,6 +252,7 @@
     <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Models\AuthTokenModel.cs" />
+    <Compile Include="Models\LinkModel.cs" />
     <Compile Include="Models\MeasureV2Model.cs" />
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Filters\CountingKsAuthorizeAttribute.cs" />

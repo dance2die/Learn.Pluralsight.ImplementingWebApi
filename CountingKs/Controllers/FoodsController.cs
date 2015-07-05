@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http.Routing;
 using CountingKs.Data;
@@ -25,8 +26,19 @@ namespace CountingKs.Controllers
 			var totalPages = Math.Ceiling((double)totalCount / PAGE_SIZE);
 
 			var helper = new UrlHelper(Request);
-			var prevUrl = page > 0 ? helper.Link("Food", new {page = page - 1}) : "";
-			var nextUrl = page < totalCount - 1 ? helper.Link("Food", new {page = page + 1}) : "";
+			var links = new List<LinkModel>();
+			if (page > 0)
+			{
+				links.Add(TheModelFactory.CreateLink(helper.Link("Food", new { page = page - 1 }), "prevPage"));
+			}
+
+			if (page < totalCount - 1)
+			{
+				links.Add(TheModelFactory.CreateLink(helper.Link("Food", new { page = page + 1 }), "nextPage"));
+			}
+
+			//var prevUrl = page > 0 ? helper.Link("Food", new {page = page - 1}) : "";
+			//var nextUrl = page < totalCount - 1 ? helper.Link("Food", new {page = page + 1}) : "";
 
 			var results = baseQuery
 				.Skip(PAGE_SIZE * page)
@@ -38,8 +50,9 @@ namespace CountingKs.Controllers
 				{
 					TotalCount = totalCount,
 					TotalPage = totalPages,
-					PrevPageUrl = prevUrl,
-					NextPageUrl = nextUrl,
+					//PrevPageUrl = prevUrl,
+					//NextPageUrl = nextUrl,
+					Links = links,
 					Results = results
 				};
 		}
