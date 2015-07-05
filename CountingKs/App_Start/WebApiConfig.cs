@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using CountingKs.Filters;
+using CountingKs.Services;
 using Newtonsoft.Json.Serialization;
 
 namespace CountingKs
@@ -22,9 +24,9 @@ namespace CountingKs
 			config.Routes.MapHttpRoute(
 				name: "Measures",
 				routeTemplate: "api/nutrition/foods/{foodid}/measures/{id}",
-				defaults: new {controller = "measures", id = RouteParameter.Optional}
+				defaults: new { controller = "measures", id = RouteParameter.Optional }
 				);
-			
+
 			config.Routes.MapHttpRoute(
 				name: "Measures2",
 				routeTemplate: "api/nutrition/foods/{foodid}/measures/{id}",
@@ -70,6 +72,10 @@ namespace CountingKs
 			//config.Formatters.Insert(0, jsonpFormatter);
 			//var jsonpFormatter = new JsonMediaTypeFormatter();
 			//config.Formatters.Insert(0, jsonpFormatter);
+
+			// Replace the Controller Configuration
+			config.Services.Replace(typeof(IHttpControllerSelector),
+				new CountingKsControllerSelector(config));
 
 #if !DEBUG
 	// Force HTTPS on entire API

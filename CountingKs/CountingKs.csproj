@@ -256,6 +256,7 @@
     <Compile Include="Models\MeasureModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CountingKsControllerSelector.cs" />
     <Compile Include="Services\CountingKsIdentityService.cs" />
     <Compile Include="Services\ICountingKsIdentityService.cs" />
     <Compile Include="Services\NinjectWebApiFilterProvider.cs" />
