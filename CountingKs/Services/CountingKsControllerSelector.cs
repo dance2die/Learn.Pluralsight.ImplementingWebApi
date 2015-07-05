@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
@@ -29,8 +30,8 @@ namespace CountingKs.Services
 			if (controllers.TryGetValue(controllerName, out descriptor))
 			{
 				//string version = GetVersionFromQueryString(request);
-				string version = GetVersionFromHeader(request);
-				//var version = GetVersionFromAcceptHeaderVersion(request);
+				//string version = GetVersionFromHeader(request);
+				string version = GetVersionFromAcceptHeaderVersion(request);
 				//var version = GetVersionFromMediaType(request);
 				var newName = string.Concat(controllerName, "V", version);
 				HttpControllerDescriptor versionedDescriptor;
@@ -62,17 +63,15 @@ namespace CountingKs.Services
 
 		private string GetVersionFromAcceptHeaderVersion(HttpRequestMessage request)
 		{
-			var accept = request.Headers.Accept;
-
+			HttpHeaderValueCollection<MediaTypeWithQualityHeaderValue> accept = request.Headers.Accept;
 			foreach (var mime in accept)
 			{
 				if (mime.MediaType == "application/json")
 				{
-					var value = mime.Parameters
-									.Where(v => v.Name.Equals("version", StringComparison.OrdinalIgnoreCase))
-									.FirstOrDefault();
-
-					return value.Value;
+					var versionParameter = mime.Parameters
+						.FirstOrDefault(parameter => 
+							parameter.Name.Equals("version", StringComparison.OrdinalIgnoreCase));
+					return versionParameter.Value;
 				}
 			}
 
